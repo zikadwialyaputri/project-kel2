@@ -1,36 +1,65 @@
-<nav id="sidebar" class="sidebar js-sidebar">
-    <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand" href="{{ route('dashboard') }}">
-            <span class="align-middle">Perpus Mini</span>
-        </a>
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <ul class="sidebar-nav">
-            <li class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('dashboard') }}">
-                    <span class="align-middle">Dashboard</span>
-                </a>
-            </li>
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard') }}">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-book"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Perpus Mini</div>
+    </a>
 
-            <li class="sidebar-item {{ request()->is('books*') ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('books.index') }}">
-                    <span class="align-middle">Buku</span>
-                </a>
-            </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
 
-            <li class="sidebar-item {{ request()->is('loans*') ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('loans.index') }}">
-                    <span class="align-middle">Peminjaman</span>
-                </a>
-            </li>
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.dashboard') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
 
-            @if (auth()->user()->role === 'admin')
-                <li class="sidebar-header">Admin</li>
-                <li class="sidebar-item {{ request()->is('admin/users*') ? 'active' : '' }}">
-                    <a class="sidebar-link" href="{{ route('admin.users.index') }}">
-                        <span class="align-middle">Kelola Staff</span>
-                    </a>
-                </li>
-            @endif
-        </ul>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Menu
     </div>
-</nav>
+
+    <!-- Nav Item - Buku -->
+    <li class="nav-item {{ request()->routeIs('books.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('books.index') }}">
+            <i class="fas fa-fw fa-book"></i>
+            <span>Buku</span></a>
+    </li>
+
+    @if(auth()->user()->role === 'admin')
+        <!-- Nav Item - Kelola Staff -->
+        <li class="nav-item {{ request()->is('admin/users*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.users.index') }}">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Kelola Staff</span></a>
+        </li>
+    @endif
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Nav Item - Logout -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="fas fa-fw fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+    </li>
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>

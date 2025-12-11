@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -11,27 +12,22 @@ Route::get('/halo', function () {
 });
 Route::get('/home', [HomeController::class, 'index']);
 
-// Route::get('/', [BookController::class, 'publicIndex'])->name('home'); // GUEST katalog
-
-Route::middleware(['auth'])->group(function () {
-
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
-
-    // Admin + Staff bisa akses ini (dibedain di Blade)
-    // Route::resource('books', BookController::class);
-
-    // // Peminjaman: fokus ke Staff + Admin
-    // Route::resource('loans', LoanController::class)->middleware('role:admin,staff');
+Route::get('/', function () {
+    return redirect()->route('books.index');
 });
 
-// Admin only: kelola staff
-// Route::middleware(['auth', 'role:admin'])
-//     ->prefix('admin')
-//     ->name('admin.')
-// //     ->group(function () {
-// //         Route::resource('users', UserController::class);
-// //     });
+Route::middleware(['auth'])->group(function () {
+    // Admin & Staff bisa lihat daftar buku
+    Route::middleware(['role:admin,staff'])->group(function () {
+        Route::resource('books', BookController::class);
+    });
 
-// require __DIR__ . '/auth.php';
+    // Dashboard khusus admin
+    Route::middleware(['role:admin'])->group(function () {
+        Route::get('/admin/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
+    });
+});
+
+require __DIR__.'/auth.php';

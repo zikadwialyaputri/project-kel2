@@ -1,34 +1,74 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
     <title>@yield('title', 'Dashboard') - Perpus Mini</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {{-- AdminKit CSS --}}
-    <link rel="stylesheet" href="{{ asset('adminkit/css/app.css') }}">
+
+    <!-- Custom fonts for this template-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1.3/css/sb-admin-2.min.css" rel="stylesheet">
     @stack('styles')
+
 </head>
 
-<body>
-    <div class="wrapper">
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
         @include('partials.admin.sidebar')
 
-        <div class="main">
-            @include('partials.admin.navbar')
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-            <main class="content">
-                <div class="container-fluid p-0">
+            <!-- Main Content -->
+            <div id="content">
+
+                @include('partials.admin.navbar')
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
                     @yield('content')
                 </div>
-            </main>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
 
             @include('partials.admin.footer')
-        </div>
-    </div>
 
-    <script src="{{ asset('adminkit/js/app.js') }}"></script>
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="https://cdn.jsdelivr.net/npm/startbootstrap-sb-admin-2@4.1.3/js/sb-admin-2.min.js"></script>
     @stack('scripts')
+
 </body>
 
 </html>
